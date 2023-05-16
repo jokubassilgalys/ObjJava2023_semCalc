@@ -1,5 +1,4 @@
 package calcInterface;
-
 import calcException.CalcException;
 
 public interface BaseOpInterface {

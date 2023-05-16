@@ -1,42 +1,26 @@
 package calcModes;
-import java.math.BigInteger;
-import java.math.BigDecimal;
 import calcException.*;
+import java.math.BigDecimal;
 
 public class SimpleCalculator extends BaseCalculator {
 
     public SimpleCalculator() {
-        this(BigInteger.ZERO, BigInteger.ZERO);
+        this(BigDecimal.ZERO, BigDecimal.ZERO);
     }
-    public SimpleCalculator(BigInteger arg1, BigInteger arg2) {
+    public SimpleCalculator(BigDecimal arg1, BigDecimal arg2) {
         super(arg1, arg2);
     }
 
-
     public void power(){
-        answer = new BigDecimal(arg1.pow(arg2.intValue()));
+        answer = arg1.pow(arg2.intValue()).round(precision);
     }
 
-    public void percent() throws CalcException{
-        if(arg2.equals(BigInteger.ZERO)){
+    public void mod() throws ExceptionDivideByZero {
+        if(arg2.equals(BigDecimal.ZERO)){
             throw new ExceptionDivideByZero();
         }
         else {
-            BigDecimal BDarg1 = new BigDecimal(arg1);
-            BigDecimal BDarg2 = new BigDecimal(arg2);
-            answer = BDarg1.multiply(BigDecimal.ONE.divide(BDarg2));
-        }
-    }
-
-    public void mod() throws CalcException {
-        if(arg2.equals(BigInteger.ZERO)){
-            throw new ExceptionDivideByZero();
-        }
-        else if(arg2.compareTo(BigInteger.ZERO) == -1){
-            throw new CalcException("Argument cannot be negative");
-        }
-        else {
-            answer = new BigDecimal(arg1.mod(arg2));
+            answer = arg1.remainder(arg2).round(precision);
         }
     }
 
